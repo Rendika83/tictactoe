@@ -64,3 +64,23 @@
     border: solid 10px #000;
     background: #fff;
 }
+
+.win {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.win-box {
+    background: #fff;
+    padding: 2em;
+}
+
+.win-box * {
+    width: 100%;
+    padding: 1em 0.5em;
+}

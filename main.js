@@ -13,6 +13,13 @@ const WIN_POSITION = [
 let xTurn = true;
 
 let cells = [...document.getElementsByClassName("cell")];
+let winElement = document.getElementById("win");
+let winText = document.getElementById("win-text");
+let restartButton = document.getElementById("restart");
+
+cells.forEach((e) => {
+    e.addEventListener("click", handleClick);
+});
 
 function handleClick(event) {
     if (xTurn) {
@@ -37,9 +44,16 @@ function handleClick(event) {
 }
 
 function win() {
-    console.log(xTurn ? "X" : "O", "WIN");
+    winText.innerHTML = xTurn ? "X WINS" : "O WINS";
+    winElement.style.display = "block";
 }
 
-cells.forEach((e) => {
-    e.addEventListener("click", handleClick);
-});
+function handleRestart() {
+    xTurn = true;
+    cells.forEach((cell) => {
+        cell.classList.remove(X_CLASS, O_CLASS);
+    });
+    winElement.style.display = "none";
+}
+
+restartButton.addEventListener("click", handleRestart);
