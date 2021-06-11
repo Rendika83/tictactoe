@@ -18,8 +18,8 @@ let winText = document.getElementById("win-text");
 let restartButton = document.getElementById("restart");
 let turnText = document.getElementById("turn-text");
 
-cells.forEach((e) => {
-    e.addEventListener("click", handleClick);
+cells.forEach((cell) => {
+    cell.addEventListener("click", handleClick);
 });
 
 function handleClick(event) {
