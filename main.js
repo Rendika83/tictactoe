@@ -16,6 +16,7 @@ let cells = [...document.getElementsByClassName("cell")];
 let winElement = document.getElementById("win");
 let winText = document.getElementById("win-text");
 let restartButton = document.getElementById("restart");
+let turnText = document.getElementById("turn-text");
 
 cells.forEach((e) => {
     e.addEventListener("click", handleClick);
@@ -26,6 +27,7 @@ function handleClick(event) {
     checkWin();
 
     xTurn = !xTurn;
+    turnText.innerHTML = xTurn ? "X TURN" : "O TURN";
 }
 
 function markCell(cell) {
@@ -60,16 +62,15 @@ function checkWin() {
             return;
         }
     });
-    if (filled.length > 8) draw();
+    if (filled.length > 8) win(true);
 }
 
-function win() {
-    winText.innerHTML = xTurn ? "X WINS" : "O WINS";
-    winElement.style.display = "block";
-}
-
-function draw() {
-    winText.innerHTML = "DRAW";
+function win(draw = false) {
+    if (draw) {
+        winText.innerHTML = "DRAW";
+    } else {
+        winText.innerHTML = xTurn ? "X WINS" : "O WINS";
+    }
     winElement.style.display = "block";
 }
 
@@ -79,6 +80,7 @@ function handleRestart() {
         cell.classList.remove(X_CLASS, O_CLASS);
     });
     winElement.style.display = "none";
+    turnText.innerHTML = "X TURN";
 }
 
 restartButton.addEventListener("click", handleRestart);
