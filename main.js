@@ -22,11 +22,7 @@ cells.forEach((e) => {
 });
 
 function handleClick(event) {
-    if (xTurn) {
-        event.target.classList.add(X_CLASS);
-    } else {
-        event.target.classList.add(O_CLASS);
-    }
+    if (!markCell(event.target)) return;
     let position = [];
     cells.forEach((cell, i) => {
         if (cell.classList.contains(xTurn ? X_CLASS : O_CLASS)) {
@@ -41,6 +37,18 @@ function handleClick(event) {
     });
 
     xTurn = !xTurn;
+}
+
+function markCell(cell) {
+    if (cell.classList.contains(X_CLASS) || cell.classList.contains(O_CLASS)) {
+        return false;
+    }
+    if (xTurn) {
+        cell.classList.add(X_CLASS);
+    } else {
+        cell.classList.add(O_CLASS);
+    }
+    return true;
 }
 
 function win() {
