@@ -23,18 +23,7 @@ cells.forEach((e) => {
 
 function handleClick(event) {
     if (!markCell(event.target)) return;
-    let position = [];
-    cells.forEach((cell, i) => {
-        if (cell.classList.contains(xTurn ? X_CLASS : O_CLASS)) {
-            position.push(i);
-        }
-    });
-    WIN_POSITION.forEach((pos) => {
-        if (pos.every((v) => position.includes(v))) {
-            win();
-            return;
-        }
-    });
+    checkWin();
 
     xTurn = !xTurn;
 }
@@ -51,8 +40,36 @@ function markCell(cell) {
     return true;
 }
 
+function checkWin() {
+    let position = [];
+    let filled = [];
+    cells.forEach((cell, i) => {
+        if (cell.classList.contains(xTurn ? X_CLASS : O_CLASS)) {
+            position.push(i);
+        }
+        if (
+            cell.classList.contains(X_CLASS) ||
+            cell.classList.contains(O_CLASS)
+        ) {
+            filled.push(i);
+        }
+    });
+    WIN_POSITION.forEach((pos) => {
+        if (pos.every((v) => position.includes(v))) {
+            win();
+            return;
+        }
+    });
+    if (filled.length > 8) draw();
+}
+
 function win() {
     winText.innerHTML = xTurn ? "X WINS" : "O WINS";
+    winElement.style.display = "block";
+}
+
+function draw() {
+    winText.innerHTML = "DRAW";
     winElement.style.display = "block";
 }
 
