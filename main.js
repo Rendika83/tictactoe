@@ -12,6 +12,8 @@ const WIN_POSITION = [
 ];
 let xTurn = true;
 
+let isWon = false;
+
 let cells = [...document.getElementsByClassName("cell")];
 let winElement = document.getElementById("win");
 let winText = document.getElementById("win-text");
@@ -62,10 +64,11 @@ function checkWin() {
             return;
         }
     });
-    if (filled.length > 8) win(true);
+    if (!isWon && filled.length > 8) win(true);
 }
 
 function win(draw = false) {
+    isWon = true;
     if (draw) {
         winText.innerHTML = "DRAW";
     } else {
@@ -81,6 +84,7 @@ function handleRestart() {
     });
     winElement.style.display = "none";
     turnText.innerHTML = "X TURN";
+    isWon = false;
 }
 
 restartButton.addEventListener("click", handleRestart);
